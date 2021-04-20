@@ -1,12 +1,17 @@
 #!/bin/sh
 
-WORKSPACE="Codes"
-EDITOR="nvim"
+# Setup your default Code Workspace and Text Editor/IDE
+WORKSPACE='Codes'
+EDITOR='nvim'
 
-cd
-cd $WORKSPACE
+
+# $1 = Action
+# $2 = Language (in Edit mode: Workspace)
+# $3 = Project Name (in Edit mode: Editor)
 
 if [ $1 = "create" ] ; then
+  cd
+  cd $WORKSPACE
   if [ ! -e $2 ] ; then
     echo "Please choose a valid language"
     exit
@@ -42,7 +47,7 @@ if [ $1 = "create" ] ; then
       touch src/main.java
       ;;
     esac
-
+    
     git init
     touch .gitignore
     touch README.md
@@ -51,6 +56,8 @@ if [ $1 = "create" ] ; then
     $EDITOR
   fi
 elif [ $1 = "open" ] ; then
+  cd
+  cd $WORKSPACE
   if [ ! -e $2 ] ; then
     echo "Please choose a valid language"
     exit
@@ -65,6 +72,8 @@ elif [ $1 = "open" ] ; then
     fi
   fi
 elif [ $1 = "delete" ] ; then
+  cd
+  cd $WORKSPACE
   if [ ! -e $2 ] ; then
     echo "Please choose a valid language"
     exit
@@ -83,6 +92,18 @@ elif [ $1 = "delete" ] ; then
         exit
       fi
     fi
+  fi
+elif [ $1 = "edit" ] ; then
+  echo "WORKSPACE: "$2
+  echo "EDITOR: "$3
+  echo "Is this okay?"
+  read CONFIRM
+  if [ $CONFIRM = "yes" ] ; then
+    sed -i "4c\WORKSPACE='$2'" multi.sh
+    sed -i "5c\EDITOR='$3'" multi.sh
+    exit
+  else
+    exit
   fi
 else
   echo "Please choose a valid action (create, open or delete)"
