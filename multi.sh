@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Setup your default Code Workspace and Text Editor/IDE
-WORKSPACE='Codes'
-EDITOR='nvim'
+WORKSPACE='workspace'
+EDITOR='editor'
 
 
 # $1 = Action
