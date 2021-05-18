@@ -2,7 +2,7 @@
 
 Multi is a Shellscript made for programmers that use Linux/Mac/WSL, aiming to increase productivity in creating, opening or deleting projects with just a line in the terminal.
 
-Now the script only have 6 languages in the script, new languages can be added if needed.
+Currently the script only have 6 languages in the script, new languages can be added if needed.
 
 ## Table of Contents
 
@@ -13,9 +13,14 @@ Now the script only have 6 languages in the script, new languages can be added i
   - [Open](#open)
   - [Delete](#delete)
   - [Help](#help)
-- [](#)
+- [Items](#items)
+  - [Languages](#languages)
+  - [Editors](#editors)
+- [Support](#support)
 
 ## Install
+
+You can install the script so you can call it by just typing `multicode` in your terminal.
 
 Using wget:
 
@@ -33,118 +38,104 @@ bash <(curl -s https://raw.githubusercontent.com/laximit/Multi/master/install.sh
 
 ### Edit
 
-You can use Edit action to change your workspace
+You can use Edit action to access the script and edit anything you want:
 
 ```sh
-multicode edit *Workspace*
+multicode edit [editor]
+
+# Example:
+multicode edit vim # Open with Vim Text Editor
+multicode edit code # Open with VSCode
 ```
 
-Remember that the script starts from the Home folder, so there is no need to add it to your **_Workspace_**
-
-Example:
+At first you'll need to edit the file to add your code workspace, just enter the file and edit the variable `WORKSPACE` at the start of the script.
 
 ```sh
-# Neovim
-sh multi.sh edit Codes nvim
-# Vim
-sh multi.sh edit Codes vim
-# VSCode (use '\' if you need to add spaces)
-sh multi.sh edit Codes code\ .
+# Remember that your script starts from $HOME folder,
+# so if you want to add a directory outside of it,
+# insert all the path for the directory
+
+# Example:
+WORKSPACE='/usr/workspace'
+# Directory: /usr/workspace
+
+# If your workspace is located on your home directory,
+# then you don't need the full path
+
+# Example:
+WORKSPACE='workspace'
+# Directory: /home/[current user]/workspace
 ```
 
 ### Create
 
-Use this action to create a new project, you use it by executing the script followed by the **Create Action**, then your **Project Language** and your **Project Name**.
-
-Didn't understand? Basically you need to type
+Use this action to create a new project, you need to use the following syntax:
 
 ```sh
-sh multi.sh create *Language* *Name*
-```
+multicode create [language] [name] [editor]
 
-Then your project will be created quickly and automatically open in your chosen editor.
-
-But remember that you need to type in this order, I'm not a great programmer...yet.
-
-Example:
-
-```sh
-sh multi.sh create shell MyScript
+# Example
+multicode create shell MyScript code
+# This will create the following directory:
+# [your workspace]/Shell/MyScript
+# Then VSCode will open
 ```
 
 ### Open
 
-Now that you have created your Project, you can open it from anywhere by typing:
+This action is used to open your project, it uses a similar syntax as Create action:
 
 ```sh
-sh multi.sh open *Language* *Name*
-```
+multicode open [language] [name] [editor]
 
-It'll just go to your workspace folder and open up your desired project, simple.
-
-Example:
-
-```sh
-sh multi.sh open html MyWebsite
+# Example
+multicode open shell MyScript vim
+# This will open the following directory:
+# [your workspace]/Shell/MyScript
+# Then Vim will open
 ```
 
 ### Delete
 
-If you want to delete something, you just need to type
+This action is used to delete a chosen object, use the following syntax:
 
 ```sh
-sh multi.sh delete *Language* *Name*
+multicode delete [language] [name]
+
+# Example
+multicode delete shell MyScript
+# Then it'll ask for a confirmation, if you answer 'y' the project will be deleted
 ```
 
-Then it'll going to ask if you really want to do it, if you're sure, just type "yes" and see that project disappear :0
+## Help
 
-Example:
+This action is used to show you some info if you need, use the following syntax:
 
 ```sh
-sh multi.sh delete python MyModule
+multicode help
 ```
 
-## Languages
+## Items
+
+### Languages
 
 The current avaliable languages are:
 
 - Python
-- CSharp
+- C#
 - Html
 - Shell
 - React
 - Java
 
-## Usage
+### Editors
 
-Basically all the commands are:
+The current avaliable text editors are:
 
-```sh
-# Edit
-sh multi.sh edit *Workspace* *Editor*
+- Vim
+- Neovim
+- VSCode
 
-# Create
-sh multi.sh create *Language* *Name*
+## Support
 
-# Open
-sh multi.sh open *Language* *Name*
-
-# Delete
-sh multi.sh delete *Language* *Name*
-```
-
-Examples:
-
-```sh
-# Edit
-sh multi.sh edit MyCodes nvim
-
-# Create
-sh multi.sh create shell MyShell
-
-# Open
-sh multi.sh open shell MyShell
-
-# Delete
-sh multi.sh delete shell MyShell
-```
+If you want a new Editor/Language added to the script, want any new feature, want to report a bug or just have a question about the script, open a [Issue](https://github.com/laximit/multi/issues) on Github or message me on [Reddit](https://www.reddit.com/user/Laximit) for a quick response.

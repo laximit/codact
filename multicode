@@ -202,7 +202,11 @@ Edit() {
 
 # Go to your designed workspace
 cd
-cd $WORKSPACE
+if [ -d $WORKSPACE ]; then
+    cd $WORKSPACE
+else
+    echo "Couldn't find your code workspace, add it using 'Edit' action, for help use 'multicode help'"
+fi
 
 # Get first action then call his function
 if [ $ACTION = 'create' ]; then
