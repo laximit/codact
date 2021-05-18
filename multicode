@@ -1,12 +1,11 @@
 #!/bin/sh
 
 # Global variables
-WORKSPACE='Codes'
+WORKSPACE=''
 ACTION=$1
 LANGUAGE=$2
 NAME=$3
 EDITOR=$4
-LOCATION=$(find $HOME -name multicode)
 
 # $1 = Action (Create, Open, Delete, Edit)
 # $2 = Language (in Edit mode: Workspace)
@@ -197,18 +196,8 @@ Help() {
 }
 
 Edit() {
-    echo "WORKSPACE: $2"
-    echo "Is this okay? (y/n)"
-    read CONFIRM
-    if [ $CONFIRM = "y" ]; then
-        sed -i "4c\WORKSPACE='$2'" LOCATION
-        exit
-    elif [ $CONFIRM = "n" ]; then
-        exit
-    else
-        echo "Please use y/n to confirm."
-        exit
-    fi
+    cd /bin
+    sudo $LANGUAGE multicode
 }
 
 # Go to your designed workspace
