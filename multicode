@@ -1,0 +1,232 @@
+#!/bin/sh
+
+# Global variables
+WORKSPACE='Codes'
+ACTION=$1
+LANGUAGE=$2
+NAME=$3
+EDITOR=$4
+LOCATION=$(find $HOME -name multicode)
+
+# $1 = Action (Create, Open, Delete, Edit)
+# $2 = Language (in Edit mode: Workspace)
+# $3 = Project Name
+# $4 = Editor (code, nvim, vim)
+
+# Functions
+Editor() {
+    # Open chosen editor
+    if [ $EDITOR = 'vim' ]; then
+        vim .
+    elif [ $EDITOR = 'neovim' ]; then
+        nvim .
+    elif [ $EDITOR = 'vscode' ]; then
+        code .
+    else
+        echo "The fourth argument wasn't a valid Editor, for help type 'sh multi.sh help'."
+    fi
+}
+
+Create() {
+    # Check if the chosen language directory exists then enter it (and create the folder if needed)
+    if [ $LANGUAGE == 'python' ]; then
+        if [ ! -d Python ]; then
+            mkdir Python
+        fi
+        cd Python
+    elif [ $LANGUAGE == 'c#' ]; then
+        if [ ! -d C# ]; then
+            mkdir C#
+        fi
+        cd C#
+    elif [ $LANGUAGE == 'html' ]; then
+        if [ ! -d HTML ]; then
+            mkdir HTML
+        fi
+        cd HTML
+    elif [ $LANGUAGE == 'shell' ]; then
+        if [ ! -d Shell ]; then
+            mkdir Shell
+        fi
+        cd Shell
+    elif [ $LANGUAGE == 'react' ]; then
+        if [ ! -d React ]; then
+            mkdir React
+        fi
+        cd React
+    elif [ $LANGUAGE == 'java' ]; then
+        if [ ! -d Java ]; then
+            mkdir Java
+        fi
+        cd Java
+    else
+        echo "The second argument wasn't a valid Language, for help type 'sh multi.sh help'."
+        exit
+    fi
+
+    # Check if chosen project folder exists then enter it
+    if [ ! -d $NAME ]; then
+        mkdir $NAME
+        cd $NAME
+    else
+        echo "The third argument is an already created project Name, please delete it or use another name."
+        exit
+    fi
+
+    # Make language-defined project creation
+    if [ $LANGUAGE = 'python' ]; then
+        touch module.py
+    elif [ $LANGUAGE = 'c#' ]; then
+        dotnet new console
+    elif [ $LANGUAGE = 'html' ]; then
+        mkdir html css js assets
+        touch html/index.html
+        touch css/style.css
+        touch js/app.js
+    elif [ $LANGUAGE = 'shell' ]; then
+        echo "#!/bin/sh" >>script.sh
+    elif [ $LANGUAGE = 'react' ]; then
+        cd ..
+        rm -rf $NAME
+        npx create-react-app $NAME
+        cd $NAME
+    elif [ $LANGUAGE = 'java' ]; then
+        mkdir src res
+        touch src/main.java
+    fi
+
+    # Start Git, add gitignore and README, then make a initial commit
+    git init
+    touch .gitignore
+    touch README.md
+    git add *
+    git commit -m "Initial Commit"
+
+    # Call Editor function
+    Editor
+}
+
+Open() {
+    # Check if the chosen language directory exists then enter it
+    if [ $LANGUAGE == 'python' ] && [ -d Python ]; then
+        cd Python
+    elif [ $LANGUAGE == 'c#' ] && [ -d C# ]; then
+        cd C#
+    elif [ $LANGUAGE == 'html' ] && [ -d HTML ]; then
+        cd HTML
+    elif [ $LANGUAGE == 'shell' ] && [ -d Shell ]; then
+        cd Shell
+    elif [ $LANGUAGE == 'react' ] && [ -d React ]; then
+        cd React
+    elif [ $LANGUAGE == 'java' ] && [ -d Java ]; then
+        cd Java
+    else
+        echo "The second argument wasn't a valid Language, for help type 'sh multi.sh help'."
+        exit
+    fi
+
+    # Check if chosen project folder exists then enter it
+    if [ -d $NAME ]; then
+        cd $NAME
+    else
+        echo "The third argument wasn't a valid Name, for help type 'sh multi.sh help'."
+        exit
+    fi
+
+    # Call Editor function
+    Editor
+}
+
+Delete() {
+    # Check if the chosen language directory exists then enter it
+    if [ $LANGUAGE == 'python' ] && [ -d Python ]; then
+        cd Python
+    elif [ $LANGUAGE == 'c#' ] && [ -d C# ]; then
+        cd C#
+    elif [ $LANGUAGE == 'html' ] && [ -d HTML ]; then
+        cd HTML
+    elif [ $LANGUAGE == 'shell' ] && [ -d Shell ]; then
+        cd Shell
+    elif [ $LANGUAGE == 'react' ] && [ -d React ]; then
+        cd React
+    elif [ $LANGUAGE == 'java' ] && [ -d Java ]; then
+        cd Java
+    else
+        echo "The second argument wasn't a valid Language, for help type 'sh multi.sh help'."
+        exit
+    fi
+
+    # Check if the Project exists, ask for a confirmation then delete the project folder
+    if [ -d $NAME ]; then
+        echo "Are you sure you want to delete $NAME? (y/n)"
+        read CONFIRM
+        if [ $CONFIRM == 'y' ]; then
+            rm -rf $NAME
+            echo "Project deleted."
+            exit
+        elif [ $CONFIRM == 'n' ]; then
+            exit
+        else
+            echo "Please use y/n to confirm."
+            exit
+        fi
+    else
+        echo "The third argument wasn't a valid Name, for help type 'sh multi.sh help'."
+        exit
+    fi
+}
+
+Help() {
+    echo ""
+    echo "  ┌────────────────────────────────────────────────┐"
+    echo "  │ Usage (use lower-case)                         │"
+    echo "  │ ↳ muiti.sh [action] [language] [name] [editor] │"
+    echo "  │ ↳ (Edit) muiti.sh [action] [workspace]         │"
+    echo "  │                                                │"
+    echo "  │ Avaliable Actions                              │"
+    echo "  │ ↳ create, open, delete, edit, help             │"
+    echo "  │                                                │"
+    echo "  │ Avaliable Languages                            │"
+    echo "  │ ↳ python, c#, html, shell, react, java         │"
+    echo "  │                                                │"
+    echo "  │ Avaliable Editors                              │"
+    echo "  │ ↳ vim, neovim, vscode                          │"
+    echo "  └────────────────────────────────────────────────┘"
+    echo ""
+    exit
+}
+
+Edit() {
+    echo "WORKSPACE: $2"
+    echo "Is this okay? (y/n)"
+    read CONFIRM
+    if [ $CONFIRM = "y" ]; then
+        sed -i "4c\WORKSPACE='$2'" LOCATION
+        exit
+    elif [ $CONFIRM = "n" ]; then
+        exit
+    else
+        echo "Please use y/n to confirm."
+        exit
+    fi
+}
+
+# Go to your designed workspace
+cd
+cd $WORKSPACE
+
+# Get first action then call his function
+if [ $ACTION = 'create' ]; then
+    Create
+elif [ $ACTION = 'open' ]; then
+    Open
+elif [ $ACTION = 'delete' ]; then
+    Delete
+elif [ $ACTION = 'edit' ]; then
+    Edit
+elif [ $ACTION = 'help' ]; then
+    Help
+else
+    echo "The first argument wasn't a valid Action, for help type 'sh multi.sh help'."
+    exit
+fi
