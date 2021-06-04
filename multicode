@@ -22,7 +22,7 @@ Editor() {
     elif [ $EDITOR = 'vscode' ]; then
         code .
     else
-        echo "The fourth argument wasn't a valid Editor, for help type 'sh multi.sh help'."
+        echo "The fourth argument wasn't a valid Editor, for help type 'multicode help'."
     fi
 }
 
@@ -59,7 +59,7 @@ Create() {
         fi
         cd Java
     else
-        echo "The second argument wasn't a valid Language, for help type 'sh multi.sh help'."
+        echo "The second argument wasn't a valid Language, for help type 'multicode help'."
         exit
     fi
 
@@ -120,7 +120,7 @@ Open() {
     elif [ $LANGUAGE == 'java' ] && [ -d Java ]; then
         cd Java
     else
-        echo "The second argument wasn't a valid Language, for help type 'sh multi.sh help'."
+        echo "The second argument wasn't a valid Language, for help type 'multicode help'."
         exit
     fi
 
@@ -128,7 +128,7 @@ Open() {
     if [ -d $NAME ]; then
         cd $NAME
     else
-        echo "The third argument wasn't a valid Name, for help type 'sh multi.sh help'."
+        echo "The third argument wasn't a valid Name, for help type 'multicode help'."
         exit
     fi
 
@@ -151,7 +151,7 @@ Delete() {
     elif [ $LANGUAGE == 'java' ] && [ -d Java ]; then
         cd Java
     else
-        echo "The second argument wasn't a valid Language, for help type 'sh multi.sh help'."
+        echo "The second argument wasn't a valid Language, for help type 'multicode help'."
         exit
     fi
 
@@ -170,27 +170,27 @@ Delete() {
             exit
         fi
     else
-        echo "The third argument wasn't a valid Name, for help type 'sh multi.sh help'."
+        echo "The third argument wasn't a valid Name, for help type 'multicode help'."
         exit
     fi
 }
 
 Help() {
     echo ""
-    echo "  ┌────────────────────────────────────────────────┐"
-    echo "  │ Usage (use lower-case)                         │"
-    echo "  │ ↳ muiti.sh [action] [language] [name] [editor] │"
-    echo "  │ ↳ (Edit) muiti.sh [action] [workspace]         │"
-    echo "  │                                                │"
-    echo "  │ Avaliable Actions                              │"
-    echo "  │ ↳ create, open, delete, edit, help             │"
-    echo "  │                                                │"
-    echo "  │ Avaliable Languages                            │"
-    echo "  │ ↳ python, c#, html, shell, react, java         │"
-    echo "  │                                                │"
-    echo "  │ Avaliable Editors                              │"
-    echo "  │ ↳ vim, neovim, vscode                          │"
-    echo "  └────────────────────────────────────────────────┘"
+    echo "  ┌─────────────────────────────────────────────────┐"
+    echo "  │ Usage (use lower-case)                          │"
+    echo "  │ ↳ multicode [action] [language] [name] [editor] │"
+    echo "  │ ↳ (Edit) multicode [action] [workspace]         │"
+    echo "  │                                                 │"
+    echo "  │ Avaliable Actions                               │"
+    echo "  │ ↳ create, open, delete, edit, help              │"
+    echo "  │                                                 │"
+    echo "  │ Avaliable Languages                             │"
+    echo "  │ ↳ python, c#, html, shell, react, java          │"
+    echo "  │                                                 │"
+    echo "  │ Avaliable Editors                               │"
+    echo "  │ ↳ vim, neovim, vscode                           │"
+    echo "  └─────────────────────────────────────────────────┘"
     echo ""
     exit
 }
@@ -220,6 +220,6 @@ elif [ $ACTION = 'edit' ]; then
 elif [ $ACTION = 'help' ]; then
     Help
 else
-    echo "The first argument wasn't a valid Action, for help type 'sh multi.sh help'."
+    echo "The first argument wasn't a valid Action, for help type 'multicode help'."
     exit
 fi
