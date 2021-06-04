@@ -83,7 +83,7 @@ multicode create shell MyScript code
 
 ### Open
 
-This action is used to open your project, it uses a similar syntax as Create action:
+This action is used to open your project, it uses a similar syntax as the Create action:
 
 ```sh
 multicode open [language] [name] [editor]
