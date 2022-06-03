@@ -1,15 +1,167 @@
 #!/bin/bash
 
-startmenu() {
+WORKSPACE="$HOME/codes"
+CODACTEDITOR="$EDITOR"
+
+deletemenu() {
+	# Função para deletar projetos
 	clear
-	echo "Choose your Action:"
-	echo "1. Open Project"
-	echo "2. Create Project"
-	echo "3. Delete Project"
-	echo "4. Edit Configs"
-	echo "5. Quit"
+	cd $WORKSPACE
+	echo "Deletar qual projeto?"
+	echo "-----"
+	ls
+	echo "-----"
 	echo ""
-	read -p "> " STARTOPTION 
+	read -p "> " DELETEOPTION
+
+	cd $WORKSPACE
+	if [ ! -d "$DELETEOPTION" ] ; then
+		echo "Esse projeto não existe, por favor escolha um existente"
+		sleep 3
+		startmenu
+	else
+		rm -rf $DELETEOPTION
+		exit
+	fi
+}
+
+createmenu() {
+	# Função para criar projetos
+	clear
+	echo "Escolha uma linguagem:"
+	echo "1. Python"
+	echo "2. C# Console"
+	echo "3. HTML"
+	echo "4. Shell"
+	echo "5. ReactJS"
+	echo "6. ReactTS"
+	echo "7. Java"
+	echo ""
+	read -p "> " CREATEOPTION
+
+	if [ $CREATEOPTION -eq 1 ] ; then
+		LANGUAGE="python"
+	elif [ $CREATEOPTION -eq 2 ] ; then
+		LANGUAGE="cs"
+	elif [ $CREATEOPTION -eq 3 ] ; then
+		LANGUAGE="html"
+	elif [ $CREATEOPTION -eq 4 ] ; then
+		LANGUAGE="shell"
+	elif [ $CREATEOPTION -eq 5 ] ; then
+		LANGUAGE="reactjs"
+	elif [ $CREATEOPTION -eq 6 ] ; then
+		LANGUAGE="reactts"
+	elif [ $CREATEOPTION -eq 7 ] ; then
+		LANGUAGE="java"
+	else
+		echo "Essa não é uma opção valida, por favor escolha outra opção."
+		sleep 3
+		startmenu
+	fi
+
+	read -p "Digite o nome do projeto> " CREATENAME
+
+	PROJECTFOLDER="$LANGUAGE-$CREATENAME"
+
+	cd $WORKSPACE
+	if [ ! -d "$CREATEOPTION" ] ; then
+		if [ $LANGUAGE = "python" ] ; then
+			mkdir $PROJECTFOLDER
+			cd $PROJECTFOLDER
+			touch script.py
+		
+		elif [ $LANGUAGE = "cs" ] ; then
+			mkdir $PROJECTFOLDER
+			cd $PROJECTFOLDER
+			dotnet new console 
+		
+		elif [ $LANGUAGE = "html" ] ; then
+			mkdir $PROJECTFOLDER
+			cd $PROJECTFOLDER
+			mkdir html css js assets
+			touch html/index.html css/style.css js/app.js
+		
+		elif [ $LANGUAGE = "shell" ] ; then
+			mkdir $PROJECTFOLDER
+			cd $PROJECTFOLDER
+			touch script.sh
+		
+		elif [ $LANGUAGE = "reactjs" ] ; then
+			npx create-react-app $PROJECTFOLDER
+			cd $PROJECTFOLDER
+
+		elif [ $LANGUAGE = "reactts" ] ; then
+			npx create-react-app --template typescript $PROJECTFOLDER
+			cd $PROJECTFOLDER
+
+		elif [ $LANGUAGE = "java" ] ; then
+			mkdir $PROJECTFOLDER
+			cd $PROJECTFOLDER
+			mkdir src res
+			touch src/main.java
+		fi
+
+		$EDITOR
+	fi
+
+
+}
+
+openmenu() {
+	# Função para abrir projetos
+	clear
+	cd $WORKSPACE
+	echo "Abrir qual projeto?"
+	echo "-----"
+	ls
+	echo "-----"
+	echo ""
+	read -p "> " OPENOPTION
+
+	if [ ! -d "$OPENOPTION" ] ; then
+		echo "Esse projeto não existe, por favor crie ou escolha um existente :D"
+		sleep 3
+		startmenu
+	else
+		cd $OPENOPTION
+		$EDITOR .
+	fi
+}
+
+editmenu() {
+	clear
+	read -p "Digite sua pasta de projetos> " EDITFOLDER
+	read -p "Digite seu editor de codigo> " EDITEDITOR
+	
+	sed -i "/WORKSPACE=/c\WORKSPACE='$EDITFOLDER'" $HOME/bin/codact
+	sed -i "/EDITOR=/c\EDITOR='$EDITEDITOR'" $HOME/bin/codact
+	
+}
+
+startmenu() {
+	# Função para escolher uma ação do script
+	clear
+	echo "Escolha sua Ação:"
+	echo "1. Abrir Projeto"
+	echo "2. Criar Projeto"
+	echo "3. Deletar Projeto"
+	echo "4. Editar Config"
+	echo "5. Sair"
+	echo ""
+	read -p "> " STARTOPTION
+
+	if [ $STARTOPTION -eq 1 ] ; then
+		openmenu
+	elif [ $STARTOPTION -eq 2 ] ; then
+		createmenu
+	elif [ $STARTOPTION -eq 3 ] ; then
+		deletemenu
+	elif [ $STARTOPTION -eq 4 ] ; then
+		editmenu
+	elif [ $STARTOPTION -eq 5 ] ; then
+		clear
+		exit
+	fi
 }
 
 startmenu
