@@ -1,95 +1,66 @@
-#!/bin/sh
+#!/bin/bash
 
-# Global variables
-WORKSPACE=''
-ACTION=$1
-LANGUAGE=$2
-NAME=$3
-EDITOR=$4
+# Variables
 
-# $1 = Action (Create, Open, Delete, Edit)
-# $2 = Language (in Edit mode: Workspace)
-# $3 = Project Name
-# $4 = Editor (code, nvim, vim)
 
-# Functions
-Editor() {
-    # Open chosen editor
-    if [ $EDITOR = 'vim' ]; then
-        vim .
-    elif [ $EDITOR = 'neovim' ]; then
-        nvim .
-    elif [ $EDITOR = 'vscode' ]; then
-        code .
-    else
-        echo "The fourth argument wasn't a valid Editor, for help type 'multicode help'."
-    fi
+
+WriteName() {
+	read -p "Project Name: " $NAME
+
+	CreateProject
+}
+
+LanguageOptions() {
+	echo "-------------"
+	echo "1. Python"
+	echo "2. C# Console"
+	echo "3. HTML"
+	echo "4. Shell"
+	echo "5. React (JS)"
+	echo "6. React (TSX)"
+	echo "7. Java"
+	echo "-------------"
+	read -p "Language: " $LANGUAGE
+
+	if [ $LANGUAGE -gt 7 ] || [ $LANGUAGE -lt 1 ] ; then
+		echo "Please choose a valid number"
+	else
+		# WriteName
+		echo "okay"
+	fi
 }
 
 Create() {
-    # Check if the chosen language directory exists then enter it (and create the folder if needed)
-    if [ $LANGUAGE == 'python' ]; then
-        if [ ! -d Python ]; then
-            mkdir Python
-        fi
-        cd Python
-    elif [ $LANGUAGE == 'c#' ]; then
-        if [ ! -d C# ]; then
-            mkdir C#
-        fi
-        cd C#
-    elif [ $LANGUAGE == 'html' ]; then
-        if [ ! -d HTML ]; then
-            mkdir HTML
-        fi
-        cd HTML
-    elif [ $LANGUAGE == 'shell' ]; then
-        if [ ! -d Shell ]; then
-            mkdir Shell
-        fi
-        cd Shell
-    elif [ $LANGUAGE == 'react' ]; then
-        if [ ! -d React ]; then
-            mkdir React
-        fi
-        cd React
-    elif [ $LANGUAGE == 'java' ]; then
-        if [ ! -d Java ]; then
-            mkdir Java
-        fi
-        cd Java
-    else
-        echo "The second argument wasn't a valid Language, for help type 'multicode help'."
-        exit
-    fi
+	
+
 
     # Check if chosen project folder exists then enter it
     if [ ! -d $NAME ]; then
         mkdir $NAME
         cd $NAME
     else
-        echo "The third argument is an already created project Name, please delete it or use another name."
+        echo "There is already a project with that name, please delete it or use another name."
         exit
     fi
 
     # Make language-defined project creation
-    if [ $LANGUAGE = 'python' ]; then
+    if [ $1 = 'python' ]; then
         touch module.py
-    elif [ $LANGUAGE = 'c#' ]; then
+    elif [ $1 = 'c#' ]; then
         dotnet new console
-    elif [ $LANGUAGE = 'html' ]; then
+    elif [ $1 = 'html' ]; then
         mkdir html css js assets
         touch html/index.html
         touch css/style.css
         touch js/app.js
-    elif [ $LANGUAGE = 'shell' ]; then
+    elif [ $1 = 'shell' ]; then
         echo "#!/bin/sh" >>script.sh
-    elif [ $LANGUAGE = 'react' ]; then
+    elif [ $1 = 'react' ]; then
         cd ..
         rm -rf $NAME
         npx create-react-app $NAME
         cd $NAME
-    elif [ $LANGUAGE = 'java' ]; then
+    elif [ $1 = 'java' ]; then
         mkdir src res
         touch src/main.java
     fi
@@ -107,17 +78,17 @@ Create() {
 
 Open() {
     # Check if the chosen language directory exists then enter it
-    if [ $LANGUAGE == 'python' ] && [ -d Python ]; then
+    if [ $1 == 'python' ] && [ -d Python ]; then
         cd Python
-    elif [ $LANGUAGE == 'c#' ] && [ -d C# ]; then
+    elif [ $1 == 'c#' ] && [ -d C# ]; then
         cd C#
-    elif [ $LANGUAGE == 'html' ] && [ -d HTML ]; then
+    elif [ $1 == 'html' ] && [ -d HTML ]; then
         cd HTML
-    elif [ $LANGUAGE == 'shell' ] && [ -d Shell ]; then
+    elif [ $1 == 'shell' ] && [ -d Shell ]; then
         cd Shell
-    elif [ $LANGUAGE == 'react' ] && [ -d React ]; then
+    elif [ $1 == 'react' ] && [ -d React ]; then
         cd React
-    elif [ $LANGUAGE == 'java' ] && [ -d Java ]; then
+    elif [ $1 == 'java' ] && [ -d Java ]; then
         cd Java
     else
         echo "The second argument wasn't a valid Language, for help type 'multicode help'."
@@ -138,17 +109,17 @@ Open() {
 
 Delete() {
     # Check if the chosen language directory exists then enter it
-    if [ $LANGUAGE == 'python' ] && [ -d Python ]; then
+    if [ $1 == 'python' ] && [ -d Python ]; then
         cd Python
-    elif [ $LANGUAGE == 'c#' ] && [ -d C# ]; then
+    elif [ $1 == 'c#' ] && [ -d C# ]; then
         cd C#
-    elif [ $LANGUAGE == 'html' ] && [ -d HTML ]; then
+    elif [ $1 == 'html' ] && [ -d HTML ]; then
         cd HTML
-    elif [ $LANGUAGE == 'shell' ] && [ -d Shell ]; then
+    elif [ $1 == 'shell' ] && [ -d Shell ]; then
         cd Shell
-    elif [ $LANGUAGE == 'react' ] && [ -d React ]; then
+    elif [ $1 == 'react' ] && [ -d React ]; then
         cd React
-    elif [ $LANGUAGE == 'java' ] && [ -d Java ]; then
+    elif [ $1 == 'java' ] && [ -d Java ]; then
         cd Java
     else
         echo "The second argument wasn't a valid Language, for help type 'multicode help'."
@@ -197,29 +168,31 @@ Help() {
 
 Edit() {
     cd /bin
-    sudo $LANGUAGE multicode
+    sudo $1 multicode
 }
 
-# Go to your designed workspace
-cd
-if [ -d $WORKSPACE ]; then
-    cd $WORKSPACE
-else
-    echo "Couldn't find your code workspace, add it using 'Edit' action, for help use 'multicode help'"
-fi
+LanguageOptions
 
-# Get first action then call his function
-if [ $ACTION = 'create' ]; then
-    Create
-elif [ $ACTION = 'open' ]; then
-    Open
-elif [ $ACTION = 'delete' ]; then
-    Delete
-elif [ $ACTION = 'edit' ]; then
-    Edit
-elif [ $ACTION = 'help' ]; then
-    Help
-else
-    echo "The first argument wasn't a valid Action, for help type 'multicode help'."
-    exit
-fi
+# Go to your designed workspace
+# cd
+# if [ -d $WORKSPACE ]; then
+#     cd $WORKSPACE
+# else
+    # echo "Couldn't find your code workspace, add it using 'Edit' action, for help use 'multicode help'"
+# fi
+
+# # Get first action then call his function
+# if [ $ACTION = 'create' ]; then
+    # Create
+# elif [ $ACTION = 'open' ]; then
+    # Open
+# elif [ $ACTION = 'delete' ]; then
+    # Delete
+# elif [ $ACTION = 'edit' ]; then
+    # Edit
+# elif [ $ACTION = 'help' ]; then
+    # Help
+# else
+    # echo "The first argument wasn't a valid Action, for help type 'multicode help'."
+    # exit
+# fi

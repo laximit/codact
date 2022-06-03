@@ -1,0 +1,15 @@
+#!/bin/bash
+
+startmenu() {
+	clear
+	echo "Choose your Action:"
+	echo "1. Open Project"
+	echo "2. Create Project"
+	echo "3. Delete Project"
+	echo "4. Edit Configs"
+	echo "5. Quit"
+	echo ""
+	read -p "> " STARTOPTION 
+}
+
+startmenu
