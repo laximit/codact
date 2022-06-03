@@ -1,17 +1,17 @@
 # Multi
 
-Multi is a Shellscript made for programmers that use Linux/Mac/WSL, aiming to increase productivity in creating, opening or deleting projects with just a line in the terminal.
+Codact é um script feito pra programadores que usam Linux/Mac/WSL, que busca aumentar sua produtividade em criar, abrir ou deletar projetos de forma rápida através da linha de comando.
 
-Currently the script only have 6 languages in the script, new languages can be added if needed.
+Atualmente o script contém 7 linguagens, novas linguagens podem ser adicionadas caso necessário.
 
-## Table of Contents
+## Sumário
 
-- [Install](#install)
-- [Actions](#actions)
-  - [Edit](#edit)
-  - [Create](#create)
-  - [Open](#open)
-  - [Delete](#delete)
+- [Instalação](#instalação)
+- [Actions](#ações)
+  - [Edit](#editar)
+  - [Create](#criar)
+  - [Open](#abrir)
+  - [Delete](#deletar)
   - [Help](#help)
 - [Items](#items)
   - [Languages](#languages)
@@ -20,18 +20,18 @@ Currently the script only have 6 languages in the script, new languages can be a
 
 ## Install
 
-You can install the script so you can call it by just typing `multicode` in your terminal.
+You can install the script so you can call it by just typing `codact` in your terminal.
 
 Using wget:
 
 ```sh
-wget -O - https://raw.githubusercontent.com/laximit/Multi/master/install.sh | bash
+wget -O - https://raw.githubusercontent.com/laximit/codact/master/install.sh | bash
 ```
 
 Using curl:
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/laximit/Multi/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/laximit/codact/master/install.sh)
 ```
 
 ## Actions

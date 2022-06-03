@@ -1,10 +1,12 @@
 #!/bin/sh
 
-cd
-git clone https://github.com/laximit/multi
-cd multi
-sudo chmod a+x multicode
-sudo cp multicode /bin
+cd ~
+git clone https://github.com/laximit/codact
+cd codact
+sudo chmod +x codact
+mkdir $HOME/bin
+cp ./codact $HOME/bin
 cd ..
-rm -rf multi
-echo "Done, now you can call the script by simply typing 'multicode'."
+rm -rf codact
+
+echo "Please add 'PATH=$HOME/bin:$PATH' to enable local bin folder."
