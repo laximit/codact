@@ -1,4 +1,0 @@
-WORKSPACE="projects/folder"
-EDITOR="editor"
-
-source ./multicode
