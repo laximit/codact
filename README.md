@@ -35,7 +35,17 @@ bash <(curl -s https://raw.githubusercontent.com/laximit/codact/master/install.s
 
 ### *Open*
 
-At the start menu, choose the ```1. Open Project``` option
+```sh
+# Choose the 'Open Project' option
+
+Choose an option:
+1. Open Project   <
+2. Create Project
+3. Delete Project
+4. Edit Config
+5. Exit
+
+```
 
 ### Edit
 
