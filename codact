@@ -1,13 +1,13 @@
 #!/bin/bash
 
-WORKSPACE="$HOME/codes"
+WORKSPACE="$HOME/Documents"
 CODACTEDITOR="$EDITOR"
 
 deletemenu() {
 	# Função para deletar projetos
 	clear
 	cd $WORKSPACE
-	echo "Deletar qual projeto?"
+	echo "[?] Which project should be deleted?"
 	echo "-----"
 	ls
 	echo "-----"
@@ -16,7 +16,7 @@ deletemenu() {
 
 	cd $WORKSPACE
 	if [ ! -d "$DELETEOPTION" ] ; then
-		echo "Esse projeto não existe, por favor escolha um existente"
+		echo "[×] This project doesn't exit, please choose another one."
 		sleep 3
 		startmenu
 	else
@@ -28,7 +28,7 @@ deletemenu() {
 createmenu() {
 	# Função para criar projetos
 	clear
-	echo "Escolha uma linguagem:"
+	echo "Choose a language:"
 	echo "1. Python"
 	echo "2. C# Console"
 	echo "3. HTML"
@@ -54,12 +54,12 @@ createmenu() {
 	elif [ $CREATEOPTION -eq 7 ] ; then
 		LANGUAGE="java"
 	else
-		echo "Essa não é uma opção valida, por favor escolha outra opção."
+		echo "[×] This is not a valid option, choose another one."
 		sleep 3
 		startmenu
 	fi
 
-	read -p "Digite o nome do projeto> " CREATENAME
+	read -p "Project name: " CREATENAME
 
 	PROJECTFOLDER="$LANGUAGE-$CREATENAME"
 
@@ -111,7 +111,7 @@ openmenu() {
 	# Função para abrir projetos
 	clear
 	cd $WORKSPACE
-	echo "Abrir qual projeto?"
+	echo "[?] Which project would you like to open?"
 	echo "-----"
 	ls
 	echo "-----"
@@ -119,7 +119,7 @@ openmenu() {
 	read -p "> " OPENOPTION
 
 	if [ ! -d "$OPENOPTION" ] ; then
-		echo "Esse projeto não existe, por favor crie ou escolha um existente :D"
+		echo "[×] This project doesn't exist, choose another one."
 		sleep 3
 		startmenu
 	else
@@ -130,8 +130,8 @@ openmenu() {
 
 editmenu() {
 	clear
-	read -p "Digite sua pasta de projetos> " EDITFOLDER
-	read -p "Digite seu editor de codigo> " EDITEDITOR
+	read -p "Projects Folder: " EDITFOLDER
+	read -p "IDE/Text Editor: " EDITEDITOR
 	
 	sed -i "/WORKSPACE=/c\WORKSPACE='$EDITFOLDER'" $HOME/bin/codact
 	sed -i "/EDITOR=/c\EDITOR='$EDITEDITOR'" $HOME/bin/codact
@@ -141,12 +141,12 @@ editmenu() {
 startmenu() {
 	# Função para escolher uma ação do script
 	clear
-	echo "Escolha sua Ação:"
-	echo "1. Abrir Projeto"
-	echo "2. Criar Projeto"
-	echo "3. Deletar Projeto"
-	echo "4. Editar Config"
-	echo "5. Sair"
+	echo "Choose an option:"
+	echo "1. Open Project"
+	echo "2. Create Project"
+	echo "3. Delete Project"
+	echo "4. Edit Config"
+	echo "5. Exit"
 	echo ""
 	read -p "> " STARTOPTION
 

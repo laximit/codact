@@ -1,18 +1,15 @@
-# Multi
+# Codact
 
-Codact é um script feito pra programadores que usam Linux/Mac/WSL, que busca aumentar sua produtividade em criar, abrir ou deletar projetos de forma rápida através da linha de comando.
+Codact is a script made for programmers that use Linux/Mac/WSL, that aims to rise your productivity by creating, opening or deleting projects quickly using the command line.
 
-Atualmente o script contém 7 linguagens, novas linguagens podem ser adicionadas caso necessário.
+At the moment the script contains 7 languages, more could be added if needed.
 
-## Sumário
-
-- [Instalação](#instalação)
-- [Actions](#ações)
-  - [Edit](#editar)
-  - [Create](#criar)
-  - [Open](#abrir)
-  - [Delete](#deletar)
-  - [Help](#help)
+- [Install](#install)
+- [Actions](#actions)
+  - [Open](#open)
+  - [Create](#create)
+  - [Delete](#delete)
+  - [Edit](#edit)
 - [Items](#items)
   - [Languages](#languages)
   - [Editors](#editors)
@@ -35,6 +32,10 @@ bash <(curl -s https://raw.githubusercontent.com/laximit/codact/master/install.s
 ```
 
 ## Actions
+
+### *Open*
+
+At the start menu, choose the ```1. Open Project``` option
 
 ### Edit
 
