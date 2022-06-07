@@ -1,4 +1,13 @@
 #!/bin/bash
+#
+# Script name: Codact
+# Description: Open, create or delete programming projects.
+# Dependencies: sed, dotnet, openjdk, 
+# 							python2, python3, nodejs,
+# 							create-react-app.
+# Github: https://www.github.com/laximit/codact
+# Contributors: Murilo Lobos, 
+
 
 WORKSPACE="$HOME/Documents"
 CODACTEDITOR="$EDITOR"

@@ -45,6 +45,16 @@ Choose an option:
 4. Edit Config
 5. Exit
 
+# Then a list of the created projects on your chosen folder.
+# Type the name of the project to open.
+
+[?] Which project would you like to open?
+-----
+(projects will be shown here) 
+-----
+
+# Then your project will be open in the chosen editor.
+
 ```
 
 ### Edit
